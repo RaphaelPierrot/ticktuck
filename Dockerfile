@@ -1,5 +1,5 @@
 # Étape 1: Build de l'application Flutter
-FROM ghcr.io/cirruslabs/flutter:3.2.2 AS flutter-build
+FROM ghcr.io/cirruslabs/flutter:stable AS flutter-build
 
 WORKDIR /app
 
