@@ -1,5 +1,5 @@
 # Étape 1: Build de l'application Flutter
-FROM cirrusci/flutter:3.2.2 AS flutter-build
+FROM ghcr.io/cirruslabs/flutter:3.2.2 AS flutter-build
 
 WORKDIR /app
 
@@ -47,4 +47,3 @@ COPY --from=backend-build /app/tiktuck-backend .
 # Exposer le port pour Railway
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
-
