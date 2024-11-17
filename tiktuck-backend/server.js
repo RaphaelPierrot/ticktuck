@@ -1,4 +1,3 @@
-// server.js
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -11,18 +10,18 @@ const app = express();
 // Middleware CORS
 app.use(
   cors({
-    origin: "http://localhost:8080", // Autoriser votre frontend local
+    origin: "https://ticktuck-production.up.railway.app", // URL du frontend déployé
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
   })
 );
-
 // Middleware pour parser le JSON
 app.use(express.json());
-
 // Connexion à MongoDB
 mongoose
-  .connect("mongodb://localhost:27017/tiktok-clone")
+  .connect(
+    "mongodb://mongo:EiCmSqVVhWcGDNnkFSuOjQDhSnaPDaqL@mongodb.railway.internal:27017/ticktuck"
+  )
   .then(() => console.log("Connecté à MongoDB"))
   .catch((err) => console.error("Erreur de connexion à MongoDB:", err));
 
@@ -111,8 +110,8 @@ app.use((err, req, res, next) => {
 });
 
 // Démarrer le serveur
-const PORT = 3000;
-const HOST = "0.0.0.0"; // Écouter sur toutes les interfaces
+const PORT = 3000; // Port pour le serveur Express
+const HOST = "0.0.0.0"; // Pour s'assurer que l'application est accessible
 
 app.listen(PORT, HOST, () => {
   console.log(`Serveur backend démarré sur http://${HOST}:${PORT}`);
