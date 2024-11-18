@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tiktuck/data/colors.dart';
 import 'package:tiktuck/models/post.dart';
-import 'package:tiktuck/models/user.dart';
 import 'package:tiktuck/widget/postcontent.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class FYpage extends StatefulWidget {
   const FYpage({super.key});
@@ -12,49 +13,34 @@ class FYpage extends StatefulWidget {
 }
 
 class _FYpageState extends State<FYpage> {
-  final List<Post> tiktokitems = [
-    Post(
-        caption: 'caption',
-        postedBy: User(
-            uid: '',
-            email: '',
-            username: 'postedBy',
-            profileImageUrl: 'img/logo.webp'),
-        comment: 3,
-        like: 3,
-        shared: 3,
-        bookmarks: 3,
-        video: 'video/video1.mp4',
-        audioName: 'audio name'),
-    Post(
-        caption: 'caption',
-        postedBy: User(
-            uid: '',
-            email: '',
-            username: 'postedBy',
-            profileImageUrl: 'img/logo.webp'),
-        comment: 3,
-        like: 3,
-        shared: 3,
-        bookmarks: 3,
-        video: 'video/video2.mp4',
-        audioName: ''),
-    Post(
-        caption: 'caption',
-        postedBy: User(
-            uid: '',
-            email: '',
-            username: 'postedBy',
-            profileImageUrl: 'img/logo.webp'),
-        comment: 3,
-        like: 3,
-        shared: 3,
-        bookmarks: 3,
-        video: 'video/video3.mp4',
-        audioName: ''),
-  ];
+  List<Post> tiktokitems = [];
   bool _isFollowingSelected = true;
   int snappedPageIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchVideos();
+  }
+
+  Future<void> _fetchVideos() async {
+    try {
+      final response =
+          await http.get(Uri.parse('http://localhost:3000/api/videos'));
+
+      if (response.statusCode == 200) {
+        final List<dynamic> videoData = json.decode(response.body);
+        setState(() {
+          tiktokitems = videoData.map((data) => Post.fromJson(data)).toList();
+        });
+      } else {
+        throw Exception('Failed to load videos');
+      }
+    } catch (e) {
+      print('Error fetching videos: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,18 +62,14 @@ class _FYpageState extends State<FYpage> {
                       fontWeight: FontWeight.w600,
                       fontSize: _isFollowingSelected ? 18 : 14),
                 )),
-            const SizedBox(
-              width: 10,
-            ),
+            const SizedBox(width: 10),
             Text('|',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       color: tipoUnselected,
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
                     )),
-            const SizedBox(
-              width: 10,
-            ),
+            const SizedBox(width: 10),
             GestureDetector(
                 onTap: () => setState(() {
                       _isFollowingSelected = false;
@@ -98,7 +80,7 @@ class _FYpageState extends State<FYpage> {
                       color: _isFollowingSelected ? tipoUnselected : tipo,
                       fontWeight: FontWeight.w600,
                       fontSize: _isFollowingSelected ? 14 : 18),
-                ))
+                )),
           ],
         ),
       ),
