@@ -5,6 +5,8 @@ services:
       dockerfile: dockerfile.frontend
     ports:
       - "80:80"
+    networks:
+      - app-network
 
   backend:
     build:
@@ -16,6 +18,8 @@ services:
       - MONGO_URI=mongodb://mongo:27017/tiktok-clone
     depends_on:
       - mongo
+    networks:
+      - app-network
 
   mongo:
     image: mongo
@@ -24,6 +28,8 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
+    networks:
+      - app-network
 
   nginx:
     image: nginx:stable-alpine
@@ -33,6 +39,9 @@ services:
       - "80:80"
     depends_on:
       - backend
+    networks:
+      - app-network
+
 networks:
   app-network:
 
