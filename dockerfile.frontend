@@ -6,35 +6,28 @@ RUN apt-get update && apt-get install -y \
     curl git wget unzip libgconf-2-4 gdb libstdc++6 libglu1-mesa fonts-droid-fallback python3 && \
     apt-get clean
 
-# Configurer les variables d'environnement Flutter
+# Configurer les variables d'environnement Flutter et Dart
 ENV PUB_HOSTED_URL=https://pub.flutter-io.cn
 ENV FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 
+# Télécharger et installer Dart SDK >=3.2.2
+RUN wget -O /tmp/dart-sdk.zip https://storage.googleapis.com/dart-archive/channels/stable/release/3.2.2/sdk/dartsdk-linux-x64-release.zip \
+    && unzip /tmp/dart-sdk.zip -d /usr/lib/ \
+    && rm /tmp/dart-sdk.zip
+
+ENV PATH="/usr/lib/dart-sdk/bin:/usr/local/flutter/bin:/usr/local/flutter/bin/cache/dart-sdk/bin:${PATH}"
+
 # Télécharger Flutter SDK
 RUN git clone https://github.com/flutter/flutter.git /usr/local/flutter
-ENV PATH="/usr/local/flutter/bin:/usr/local/flutter/bin/cache/dart-sdk/bin:${PATH}"
-
-# Initialiser Flutter
 RUN flutter doctor
 RUN flutter channel stable
 RUN flutter upgrade
 RUN flutter config --enable-web
 
-# Étape 1 : Utiliser une image Dart avec la version correcte
-FROM dart:3.2.2 AS dart-build
-
 WORKDIR /app
-
-# Copier les fichiers nécessaires pour résoudre les dépendances
-COPY pubspec.* /app/
-
-# Exécuter dart pub get avec une version compatible
+COPY pubspec.* ./
 RUN dart pub get
-
-# Copier le reste des fichiers
 COPY . .
-
-# Construire l'application Flutter web
 RUN flutter build web --dart-define=BASE_URL=https://ticktuck-production.up.railway.app
 
 
