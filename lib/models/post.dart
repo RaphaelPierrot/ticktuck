@@ -21,7 +21,7 @@ class Post {
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
       caption: json['description'],
-      video: json['videoUrl'],
+      video: 'http://localhost:3000/api' + json['videoUrl'],
       audioName: json['music'] ?? '',
       like: json['likes'],
       comment: json['comments'],

@@ -4,7 +4,7 @@ const Photo = require("../models/photo"); // Importer le modèle Photo
 
 // Chemin du dossier contenant les vidéos
 //const photoDirectory = "/Volumes/SSD/Documents/photos";
-const photoDirectory = "/Users/raphaelpierrot/Documents/Tiktuck/img";
+const photoDirectory = "../img";
 async function saveExistingPhotosToDB() {
   try {
     const files = fs.readdirSync(photoDirectory).filter((file) => {

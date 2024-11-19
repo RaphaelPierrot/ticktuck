@@ -5,7 +5,7 @@ const { Worker } = require("worker_threads");
 
 // Chemin du dossier contenant les vidéos
 //const videoDirectory = "/Volumes/SSD/Documents/videos";
-const videoDirectory = "/Users/raphaelpierrot/Documents/Tiktuck/video";
+const videoDirectory = "../video";
 // Fonction pour extraire le username avant le premier underscore
 function extractUsername(filename) {
   const underscoreIndex = filename.indexOf("_");

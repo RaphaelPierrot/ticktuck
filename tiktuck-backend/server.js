@@ -10,7 +10,10 @@ const videoRoutes = require("./routes/videoRoutes");
 // Middleware CORS
 app.use(
   cors({
-    origin: "https://ticktuck-production.up.railway.app", // URL du frontend déployé
+    origin: [
+      "https://ticktuck-production.up.railway.app",
+      "http://localhost:56701",
+    ], // URL du frontend déployé
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
   })

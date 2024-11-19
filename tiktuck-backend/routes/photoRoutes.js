@@ -6,7 +6,7 @@ const Photo = require("../models/photo");
 const router = express.Router();
 // Chemin du dossier contenant les vidéos
 //const photoDirectory = "/Volumes/SSD/Documents/photos";
-const photoDirectory = "/Users/raphaelpierrot/Documents/Tiktuck/img";
+const photoDirectory = "../img";
 // Configuration de Multer pour les photos
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -120,6 +120,6 @@ router.delete("/:id", async (req, res) => {
   }
 });
 // Servir les fichiers photo statiques
-router.use("/static", express.static(path.join(photoDirectory)));
+router.use("/", express.static(path.join(photoDirectory)));
 
 module.exports = router;

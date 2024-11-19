@@ -6,7 +6,7 @@ const Video = require("../models/video");
 const router = express.Router();
 // Chemin du dossier contenant les vidéos
 //const videoDirectory = "/Volumes/SSD/Documents/videos";
-const videoDirectory = "/Users/raphaelpierrot/Documents/Tiktuck/video";
+const videoDirectory = "../video";
 // Configuration de Multer pour le stockage des vidéos sur le SSD externe
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -97,6 +97,6 @@ router.use((err, req, res, next) => {
   next();
 });
 // Servir les fichiers vidéo statiques
-router.use("/static", express.static(path.join(videoDirectory)));
+router.use("/", express.static(path.join(videoDirectory)));
 
 module.exports = router;
