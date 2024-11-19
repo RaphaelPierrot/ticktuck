@@ -29,23 +29,19 @@ RUN flutter pub get
 COPY . .
 RUN flutter build web --dart-define=BASE_URL=https://ticktuck-production.up.railway.app
 
-# Étape 3: Serveur final combiné avec Nginx et backend Node.js
+
+# Étape 2: Serveur Nginx
 FROM nginx:stable-alpine AS production
 
-# Configurer le répertoire Nginx
 WORKDIR /usr/share/nginx/html
 
-# Copier les fichiers front-end de l'étape Flutter
+# Copier le build Flutter
 COPY --from=flutter-build /app/build/web/ .
 
-# Copier le backend dans un sous-dossier
-COPY --from=backend-build /app/tiktuck-backend /app/backend
-
-# Configurer Nginx pour servir le front-end et proxy API vers le backend
+# Configurer Nginx
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
-# Exposer les ports pour Nginx et le backend
-EXPOSE 80 3000
+EXPOSE 80
 
 # CMD pour lancer Nginx et le backend avec un script d'entrée
 COPY entrypoint.sh /entrypoint.sh

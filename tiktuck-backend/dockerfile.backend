@@ -1,12 +1,11 @@
-FROM node:18-alpine
+FROM node:18-alpine AS backend-build
 
 WORKDIR /app
-
-COPY tiktuck-backend/package*.json ./
+COPY package*.json ./
 RUN npm install
-
-COPY tiktuck-backend .
+COPY . .
 
 EXPOSE 3000
 
 CMD ["node", "server.js"]
+
