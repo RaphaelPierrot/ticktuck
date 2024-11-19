@@ -56,6 +56,8 @@ router.post("/upload", upload.single("video"), async (req, res) => {
     });
 
     await newVideo.save();
+    // Émettre un événement via Socket.IO
+    req.app.get("io").emit("videoAdded", newVideo);
     res.status(201).json(newVideo);
   } catch (err) {
     console.error("Erreur lors du téléchargement de la vidéo :", err);
@@ -84,7 +86,43 @@ router.get("/videos", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+// Route pour supprimer une vidéo
+router.delete("/:id", async (req, res) => {
+  try {
+    const videoId = req.params.id;
 
+    // Rechercher la vidéo dans la base de données
+    const video = await Video.findById(videoId);
+    if (!video) {
+      return res.status(404).json({ message: "Vidéo non trouvée" });
+    }
+
+    // Chemin complet de la vidéo sur le disque
+    const videoPath = path.join(videoDirectory, path.basename(video.videoUrl));
+
+    // Supprimer le fichier vidéo du système de fichiers
+    fs.unlink(videoPath, (err) => {
+      if (err) {
+        console.error("Erreur lors de la suppression du fichier :", err);
+        return res
+          .status(500)
+          .json({ message: "Erreur lors de la suppression du fichier vidéo" });
+      }
+
+      console.log("Fichier vidéo supprimé :", videoPath);
+    });
+
+    // Supprimer l'entrée de la vidéo dans la base de données
+    await Video.findByIdAndDelete(videoId);
+
+    res.status(200).json({ message: "Vidéo supprimée avec succès" });
+  } catch (error) {
+    console.error("Erreur lors de la suppression de la vidéo :", error);
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la suppression de la vidéo" });
+  }
+});
 // Gestion des erreurs Multer et autres erreurs
 router.use((err, req, res, next) => {
   if (err instanceof multer.MulterError) {

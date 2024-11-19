@@ -212,6 +212,18 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "dio",
+      "rootUri": "file:///Users/raphaelpierrot/.pub-cache/hosted/pub.dev/dio-5.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "dio_web_adapter",
+      "rootUri": "file:///Users/raphaelpierrot/.pub-cache/hosted/pub.dev/dio_web_adapter-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
       "name": "equatable",
       "rootUri": "file:///Users/raphaelpierrot/.pub-cache/hosted/pub.dev/equatable-2.0.5",
       "packageUri": "lib/",
@@ -620,6 +632,18 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "socket_io_client",
+      "rootUri": "file:///Users/raphaelpierrot/.pub-cache/hosted/pub.dev/socket_io_client-3.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "socket_io_common",
+      "rootUri": "file:///Users/raphaelpierrot/.pub-cache/hosted/pub.dev/socket_io_common-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "source_maps",
       "rootUri": "file:///Users/raphaelpierrot/.pub-cache/hosted/pub.dev/source_maps-0.10.12",
       "packageUri": "lib/",
@@ -776,7 +800,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-11-19T10:19:03.136214Z",
+  "generated": "2024-11-19T12:54:03.997985Z",
   "generator": "pub",
   "generatorVersion": "3.5.4",
   "flutterRoot": "file:///Users/raphaelpierrot/Documents/flutter",

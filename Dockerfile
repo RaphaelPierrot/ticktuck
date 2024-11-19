@@ -24,7 +24,8 @@ WORKDIR /app
 COPY pubspec.* ./
 RUN flutter pub get
 COPY . .
-RUN flutter build web
+RUN flutter build web --dart-define=BASE_URL=https://ticktuck-production.up.railway.app
+
 
 # Étape 2: Configuration du back-end Node.js
 FROM node:18-alpine AS backend-build
