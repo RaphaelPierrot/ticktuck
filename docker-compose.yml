@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  backend:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - ./tiktuck-backend:/app
+    command: ["node", "server.js"]
+    ports:
+      - "3000:3000"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+  nginx:
+    image: nginx:stable-alpine
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
