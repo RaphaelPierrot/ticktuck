@@ -20,14 +20,25 @@ RUN flutter channel stable
 RUN flutter upgrade
 RUN flutter config --enable-web
 
+# Étape 1 : Utiliser une image Dart avec la version correcte
+FROM dart:3.2.2 AS dart-build
+
 WORKDIR /app
-COPY pubspec.* ./
-RUN flutter pub get
+
+# Copier les fichiers nécessaires pour résoudre les dépendances
+COPY pubspec.* /app/
+
+# Exécuter dart pub get avec une version compatible
+RUN dart pub get
+
+# Copier le reste des fichiers
 COPY . .
+
+# Construire l'application Flutter web
 RUN flutter build web --dart-define=BASE_URL=https://ticktuck-production.up.railway.app
 
 
-# Étape 3: Serveur final combiné avec Nginx et backend Node.js
+# Étape 2: Serveur final combiné avec Nginx et backend Node.js
 FROM nginx:stable-alpine AS production
 
 # Configurer le répertoire Nginx
