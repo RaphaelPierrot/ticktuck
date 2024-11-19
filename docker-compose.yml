@@ -1,23 +1,29 @@
 version: "3.8"
 
 services:
-  backend:
-    image: node:18-alpine
-    working_dir: /app
-    volumes:
-      - ./tiktuck-backend:/app
-    command: ["node", "server.js"]
-    ports:
-      - "3000:3000"
-
   frontend:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.frontend
     ports:
       - "80:80"
-    depends_on:
-      - backend
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/tiktok-clone
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
 
   nginx:
     image: nginx:stable-alpine
@@ -27,3 +33,8 @@ services:
       - "80:80"
     depends_on:
       - backend
+networks:
+  app-network:
+
+volumes:
+  mongodb_data:

@@ -12,6 +12,9 @@ const { Server } = require("socket.io");
 const path = require("path");
 const http = require("http");
 const server = http.createServer(app);
+const MONGO_URI =
+  process.env.MONGO_URI || "mongodb://localhost:27017/tiktok-clone";
+
 const io = new Server(server, {
   cors: {
     origin: [
@@ -36,7 +39,7 @@ app.use(
 app.use(express.json());
 // Connexion à MongoDB
 mongoose
-  .connect("mongodb://localhost:27017/tiktok-clone")
+  .connect(MONGO_URI)
   .then(() => console.log("Connecté à MongoDB"))
   .catch((err) => console.error("Erreur de connexion à MongoDB:", err));
 
