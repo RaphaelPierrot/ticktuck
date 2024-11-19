@@ -17,7 +17,7 @@ services:
   nginx:
     build:
       context: .
-      dockerfile: dockerfile.nginx
+      dockerfile: dockerfile.frontend
     ports:
       - "80:80"
     depends_on:
