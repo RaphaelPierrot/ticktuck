@@ -15,22 +15,9 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - MONGO_URI=mongodb://mongo:27017/tiktok-clone
-    depends_on:
-      - mongo
+      - MONGO_URI=${MONGO_URI}
     networks:
       - app-network
-
-  mongo:
-    image: mongo
-    container_name: mongo
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo-data:/data/db
-    networks:
-      - app-network
-
   nginx:
     image: nginx:stable-alpine
     volumes:
@@ -44,7 +31,3 @@ services:
 
 networks:
   app-network:
-
-volumes:
-  mongo-data:
-    driver: local
