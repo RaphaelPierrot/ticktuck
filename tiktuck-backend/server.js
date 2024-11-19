@@ -16,7 +16,7 @@ const io = new Server(server, {
   cors: {
     origin: [
       "https://ticktuck-production.up.railway.app",
-      "http://localhost:56701",
+      "http://localhost:59419",
     ], // URL du frontend déployé
     methods: ["GET", "POST"],
   },
@@ -26,7 +26,7 @@ app.use(
   cors({
     origin: [
       "https://ticktuck-production.up.railway.app",
-      "http://localhost:56701",
+      "http://localhost:59419",
     ], // URL du frontend déployé
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
