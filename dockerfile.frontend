@@ -2,36 +2,34 @@
 FROM ubuntu:20.04 AS flutter-build
 
 ENV DEBIAN_FRONTEND=noninteractive
+
+# Installer les dépendances nécessaires
 RUN apt-get update && apt-get install -y \
     curl git wget unzip libgconf-2-4 gdb libstdc++6 libglu1-mesa fonts-droid-fallback python3 && \
     apt-get clean
 
-# Configurer les variables d'environnement Flutter et Dart
-ENV PUB_HOSTED_URL=https://pub.flutter-io.cn
-ENV FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
-
-# Télécharger et installer Dart SDK >=3.2.2
-RUN wget -O /tmp/dart-sdk.zip https://storage.googleapis.com/dart-archive/channels/stable/release/3.2.2/sdk/dartsdk-linux-x64-release.zip \
-    && unzip /tmp/dart-sdk.zip -d /usr/lib/ \
-    && rm /tmp/dart-sdk.zip
-
-ENV PATH="/usr/lib/dart-sdk/bin:/usr/local/flutter/bin:/usr/local/flutter/bin/cache/dart-sdk/bin:${PATH}"
-
-# Télécharger Flutter SDK
+# Télécharger et installer la dernière version stable de Flutter
 RUN git clone https://github.com/flutter/flutter.git /usr/local/flutter
-RUN flutter doctor
+ENV PATH="/usr/local/flutter/bin:/usr/local/flutter/bin/cache/dart-sdk/bin:${PATH}"
+
+# Mettre à jour Flutter pour obtenir la dernière version stable
 RUN flutter channel stable
 RUN flutter upgrade
 RUN flutter config --enable-web
 
+# Vérifier les versions installées
+RUN flutter --version
+RUN dart --version
+
 WORKDIR /app
+
+# Copier les fichiers du projet et installer les dépendances
 COPY pubspec.* ./
-RUN dart pub get
+RUN flutter pub get
 COPY . .
 RUN flutter build web --dart-define=BASE_URL=https://ticktuck-production.up.railway.app
 
-
-# Étape 2: Serveur final combiné avec Nginx et backend Node.js
+# Étape 3: Serveur final combiné avec Nginx et backend Node.js
 FROM nginx:stable-alpine AS production
 
 # Configurer le répertoire Nginx
