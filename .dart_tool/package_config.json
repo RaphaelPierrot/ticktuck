@@ -8,12 +8,6 @@
       "languageVersion": "3.3"
     },
     {
-      "name": "_flutterfire_internals",
-      "rootUri": "file:///Users/raphaelpierrot/.pub-cache/hosted/pub.dev/_flutterfire_internals-1.3.35",
-      "packageUri": "lib/",
-      "languageVersion": "3.2"
-    },
-    {
       "name": "_macros",
       "rootUri": "file:///Users/raphaelpierrot/Documents/flutter/bin/cache/dart-sdk/pkg/_macros",
       "packageUri": "lib/",
@@ -146,24 +140,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "cloud_firestore",
-      "rootUri": "file:///Users/raphaelpierrot/.pub-cache/hosted/pub.dev/cloud_firestore-4.17.5",
-      "packageUri": "lib/",
-      "languageVersion": "2.18"
-    },
-    {
-      "name": "cloud_firestore_platform_interface",
-      "rootUri": "file:///Users/raphaelpierrot/.pub-cache/hosted/pub.dev/cloud_firestore_platform_interface-6.2.5",
-      "packageUri": "lib/",
-      "languageVersion": "2.18"
-    },
-    {
-      "name": "cloud_firestore_web",
-      "rootUri": "file:///Users/raphaelpierrot/.pub-cache/hosted/pub.dev/cloud_firestore_web-3.12.5",
-      "packageUri": "lib/",
-      "languageVersion": "3.2"
-    },
-    {
       "name": "code_builder",
       "rootUri": "file:///Users/raphaelpierrot/.pub-cache/hosted/pub.dev/code_builder-4.10.1",
       "packageUri": "lib/",
@@ -256,24 +232,6 @@
     {
       "name": "file_picker",
       "rootUri": "file:///Users/raphaelpierrot/.pub-cache/hosted/pub.dev/file_picker-8.1.4",
-      "packageUri": "lib/",
-      "languageVersion": "3.4"
-    },
-    {
-      "name": "firebase_core",
-      "rootUri": "file:///Users/raphaelpierrot/.pub-cache/hosted/pub.dev/firebase_core-2.32.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.18"
-    },
-    {
-      "name": "firebase_core_platform_interface",
-      "rootUri": "file:///Users/raphaelpierrot/.pub-cache/hosted/pub.dev/firebase_core_platform_interface-5.3.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.2"
-    },
-    {
-      "name": "firebase_core_web",
-      "rootUri": "file:///Users/raphaelpierrot/.pub-cache/hosted/pub.dev/firebase_core_web-2.18.1",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -800,7 +758,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-12-02T11:14:22.909405Z",
+  "generated": "2024-12-02T11:57:54.379257Z",
   "generator": "pub",
   "generatorVersion": "3.5.4",
   "flutterRoot": "file:///Users/raphaelpierrot/Documents/flutter",

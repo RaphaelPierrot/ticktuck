@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install -y \
 # Télécharger et installer la dernière version stable de Flutter
 RUN git clone https://github.com/flutter/flutter.git /usr/local/flutter
 
-ENV PATH "$PATH:/home/developer/flutter/bin"
-RUN flutter doctor
+ENV PATH="/usr/local/flutter/bin:/usr/local/flutter/bin/cache/dart-sdk/bin:${PATH}"
+
 # Mettre à jour Flutter pour obtenir la dernière version stable
 RUN flutter channel stable
 RUN flutter upgrade
@@ -29,6 +29,7 @@ COPY pubspec.* ./
 RUN flutter pub get
 COPY . .
 RUN flutter build web --dart-define=BASE_URL=https://ticktuck-production.up.railway.app
+
 
 # Étape 2: Serveur Nginx
 FROM nginx:stable-alpine AS production
